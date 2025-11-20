@@ -2,20 +2,16 @@ package application;
 
 import entities.Product;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class Main {
   public static void main(String[] args) {
     List<Product> products = new ArrayList<>();
 
+    // Leitura do arquivo
     try (BufferedReader bufferedReader = new BufferedReader(new FileReader("src/files/in.csv"))) {
-
       String line = bufferedReader.readLine();
       while (line != null) {
         String[] data = line.split(",");
@@ -28,6 +24,15 @@ public class Main {
       }
     } catch (IOException e) {
       System.out.println("Error: " + e.getMessage());
+    }
+
+    try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("src/files/out/summary.csv"))) {
+      for (Product product : products) {
+        String outLine = product.getName() + ", " + String.valueOf(product.totalValue() + "\n");
+        bufferedWriter.write(outLine);
+      }
+    } catch (IOException e) {
+      e.printStackTrace();
     }
   }
 }
