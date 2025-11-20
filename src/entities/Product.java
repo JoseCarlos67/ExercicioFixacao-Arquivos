@@ -11,6 +11,15 @@ public class Product {
     this.quantity = quantity;
   }
 
+  @Override
+  public String toString() {
+    return "Produto:" +
+            "\n-Nome: " + getName() +
+            "\n-Valor: " + getPrice() +
+            "\n-Quantidade: " + getQuantity() +
+            "\n";
+  }
+
   public String getName() {
     return name;
   }
